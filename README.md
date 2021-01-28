@@ -34,9 +34,42 @@ make bench_naive_cuda [FROM_N=] [TO_N=] [STEP=] [B=]
 
 - Fully-optimized CUDA: 
 ```
-make bench_naive_cuda [FROM_N=] [TO_N=] [STEP=] [B=]
+make bench_cuda [FROM_N=] [TO_N=] [STEP=] [B=]
 ```
 
-Where `B` is the CUDA block sizes (BxB).
+Where:
+- `FROM_N` is the initial number of nodes of the graph
+- `TO_N` is the final number of nodes of the graph
+- `STEP` is the step (number of nodes) from one configuration to another
+- `B` is the CUDA block sizes (BxB).
 
 Results are printed to STDOUT with the following format: `"%d\t%f\n"`, `%d` is the number of nodes and `%f` the elapsed time.
+
+# Results
+Following are some results obtained on an MX150, a medium-low range GPU and on a Tesla P100, a high-end GPU.
+
+## Sequential VS Fully-optimized CUDA (Tesla P100)
+
+![seq_vs_blocked_tesla_1](img/seq_vs_blocked_tesla_1.png)
+
+> "Numero nodi" means "Number of nodes"
+
+> "Tempo di esecuzione" means "Elapsed time"
+
+![seq_vs_blocked_tesla_2](img/seq_vs_blocked_tesla_2.png)
+
+![seq_vs_blocked_tesla_3](img/seq_vs_blocked_tesla_3.png)
+
+> "Dimensione blocchi" means "Block sizes"
+
+## Sequential VS Fully-optimized CUDA (MX150)
+
+![seq_vs_blocked_mx_1](img/seq_vs_blocked_mx_1.png)
+
+![seq_vs_blocked_mx_2](img/seq_vs_blocked_mx_2.png)
+
+![seq_vs_blocked_mx_3](img/seq_vs_blocked_mx_3.png)
+
+---
+
+In conclusion, as we can see from the images above, average speedups of **12x** (MX150) and **83x** (Tesla P100) were achieved. Well... That's impressive! :sweat_smile:
